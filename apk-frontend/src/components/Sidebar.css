@@ -1,0 +1,145 @@
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  border-right: 1px solid #e5e5e3;
+  background: #fbfbf9;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sb-header {
+  padding: 16px 14px 12px;
+  border-bottom: 1px solid #e5e5e3;
+}
+
+.sb-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.sb-brand .ti { font-size: 16px; }
+
+.sb-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 6px;
+  gap: 1px;
+}
+
+.sb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #4a4a47;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-family: inherit;
+  transition: background 0.1s, color 0.1s;
+  width: 100%;
+}
+
+.sb-item:hover { background: #efefed; color: #1a1a1a; }
+.sb-item.active { background: #e8e8e5; color: #1a1a1a; font-weight: 500; }
+.sb-item.muted  { cursor: default; color: #9b9b97; font-size: 12px; }
+.sb-item.muted:hover { background: transparent; color: #9b9b97; }
+.sb-item .ti { font-size: 15px; flex-shrink: 0; }
+
+.sb-section {
+  font-size: 11px;
+  color: #9b9b97;
+  padding: 10px 10px 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Sidebar main configuration adjustment */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Isse footer automatically bilkul niche stretch ho jayega */
+  height: 100vh;
+}
+
+/* Footer Section base */
+.sb-footer {
+  padding: 16px;
+  border-top: 1px solid #eaeaea;
+  background-color: #f9fafb; /* Subtle separate contrast layer */
+  margin-top: auto; /* Aligns to absolute bottom */
+}
+
+/* User identity structure card */
+.sb-user-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.sb-user-avatar {
+  background-color: #111; /* Matching accent color block */
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.sb-user-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sb-username {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #1a1a1a;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.sb-user-role {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+/* Logout Actions configuration buttons */
+.sb-logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  color: #444;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.sb-logout-btn:hover {
+  background-color: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+}

@@ -1,0 +1,167 @@
+/* WS-11 Firmware Page Wrapper */
+.ws11-page {
+  width: 100%;
+  padding: 10px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Page Title (Matching Topbar styling approach) */
+.ws11-page h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 4px 0;
+}
+
+/* Header/Actions Top Layout (Aligning buttons perfectly) */
+.ws11-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e5e3;
+}
+
+/* Firmware Details Card (Matching Table Wrapper Design) */
+.firmware-card {
+  background: #ffffff;
+  border: 1px solid #e5e5e3;
+  border-radius: 10px;
+  padding: 4px 0; /* Clean table-like spacing */
+}
+
+/* Rows inside the firmware card */
+.firmware-card p {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Data columns alignment */
+  padding: 12px 16px;
+  margin: 0;
+  font-size: 13px;
+  color: #1a1a1a;
+  border-bottom: 1px solid #efefed;
+}
+
+.firmware-card p:last-child {
+  border-bottom: none;
+}
+
+/* Table row hover effect imitation */
+.firmware-card p:hover {
+  background: #fbfbf9;
+}
+
+/* Left Label columns inside rows (Matching Table Headers styling) */
+.firmware-card strong {
+  width: 120px; /* Aligns data right after labels neatly */
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b6b67;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+/* Empty State Box (Matching your ApkTable empty style) */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background: #ffffff;
+  border: 1px dashed #e5e5e3;
+  border-radius: 10px;
+  color: #6b6b67;
+  font-size: 13px;
+  text-align: center;
+  padding: 24px;
+}
+
+/* Bottom Action section wrapper */
+.ws11-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Standardized Flat Base Buttons (Matching application themes) */
+.ws11-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.ws11-btn:active {
+  transform: scale(0.98);
+}
+
+/* Primary Button Style (Dark, minimal matching theme) */
+.ws11-btn.primary {
+  background: #121212;
+  color: #ffffff;
+}
+
+.ws11-btn.primary:hover {
+  background: #2a2a2a;
+}
+
+/* Danger Button Style (Low opacity minimal danger look) */
+.ws11-btn.danger {
+  background: #fdf2f2;
+  color: #de3535;
+  border: 1px solid #fbd5d5;
+}
+
+.ws11-btn.danger:hover {
+  background: #fbe8e8;
+}
+
+/* Stats Metric Grid Layout */
+.ws11-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+/* Metric Statistics Card Box */
+.ws11-stat {
+  background: #fbfbf9;
+  border: 1px solid #e5e5e3;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Statistics Labels */
+.ws11-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b6b67;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+/* Statistics Main Values */
+.ws11-stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* Responsive breakpoint handling */
+@media (max-width: 900px) {
+  .ws11-grid {
+    grid-template-columns: 1fr;
+  }
+}

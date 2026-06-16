@@ -1,0 +1,219 @@
+/* ========================================================
+   📦 TABLE CONTAINER FRAMEWORK
+   ======================================================== */
+.table-wrap {
+  border: 1px solid #e5e5e3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+  margin-top: 16px;
+}
+
+.apk-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header typography and structure */
+.apk-table th {
+  background: #f7f7f5;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b6b67;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 10px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e5e3;
+}
+
+.apk-table td {
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #1a1a1a;
+  border-bottom: 1px solid #efefed;
+  vertical-align: middle;
+}
+
+.apk-table tr:last-child td { 
+  border-bottom: none; 
+}
+
+/* Micro-interaction background tint */
+.apk-table tr:hover td { 
+  background: #fbfbf9; 
+}
+
+/* ========================================================
+   🗂️ CELL CONTENT ALIGNMENTS
+   ======================================================== */
+.app-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.app-name { 
+  font-weight: 500; 
+}
+
+.file-name {
+  font-size: 12px;
+  color: #6b6b67;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+}
+
+.row-id {
+  font-size: 12px;
+  color: #9b9b97;
+}
+
+/* ========================================================
+   ⚡ ACTIONS INTERACTIVE CELLS (HOVER STATES)
+   ======================================================== */
+.actions-cell {
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.12s ease-in-out;
+}
+
+tr:hover .actions-cell { 
+  opacity: 1; 
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #e5e5e3;
+  background: #ffffff;
+  color: #6b6b67;
+  cursor: pointer;
+  transition: all 0.12s ease-in-out;
+  text-decoration: none;
+}
+
+.icon-btn i {
+  font-size: 13px;
+}
+
+.icon-btn:hover {
+  background: #f7f7f5;
+  color: #1a1a1a;
+  border-color: #cacaca;
+}
+
+.icon-btn.danger:hover {
+  background: #fff5f5;
+  color: #e53e3e;
+  border-color: #feb2b2;
+}
+
+/* ========================================================
+   🧠 INTELLIGENT EMPTY & SEARCH STATES UI
+   ======================================================== */
+/* Main container box styling matching your board specification */
+.empty-state-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  background: #ffffff;
+  border: 1px dashed #e5e5e3; /* Soft unified border logic */
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+/* Big state indicators styling */
+.empty-state-card i {
+  font-size: 36px;
+  color: #9b9b97;
+  margin-bottom: 12px;
+}
+
+/* Clean UI micro headers */
+.empty-state-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 6px 0;
+}
+
+/* Info descriptive parameters */
+.empty-state-card p {
+  font-size: 13px;
+  color: #6b6b67;
+  margin: 0 0 16px 0;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+/* Beautiful inline query tag wrapper for matching text strings */
+.empty-state-card p strong {
+  color: #1a1a1a;
+  background: #f7f7f5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  border: 1px solid #e5e5e3;
+  margin: 0 2px;
+}
+
+/* 🔍 Minimalist elegant action path for resetting search buffer queries */
+.clear-search-link-btn {
+  background: #ffffff;
+  border: 1px solid #e5e5e3;
+  color: #1a1a1a;
+  font-weight: 500;
+  font-size: 12.5px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.12s ease-in-out;
+}
+
+.clear-search-link-btn:hover {
+  background: #f7f7f5;
+  border-color: #cacaca;
+}
+
+/* Default state action button matching native layout design configuration */
+.upload-master-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #1a1a1a;
+  color: #ffffff;
+  border: none;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: opacity 0.12s ease;
+}
+
+.upload-master-btn:hover {
+  opacity: 0.9;
+}

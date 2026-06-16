@@ -1,0 +1,42 @@
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: #f7f7f5;
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #6b6b67;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.stat-status {
+  font-size: 14px;
+}
+
+.stat-status.online  { color: #2e7d32; }
+.stat-status.offline { color: #c0392b; }
+
+.stat-sub {
+  font-size: 11px;
+  color: #9b9b97;
+  margin-top: 2px;
+}
+
+.stat-users-count {
+  color: #111111; /* Clean pure black text numbers ke liye */
+  font-weight: 600;
+}

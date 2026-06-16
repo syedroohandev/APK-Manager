@@ -1,0 +1,434 @@
+/* ==========================================
+   🧩 WORKSPACE WRAPPER AND STRUCTURE GRID
+   ========================================== */
+.users-view-wrapper {
+  animation: fadeInLayout 0.25s ease-out;
+  width: 100%;
+}
+
+@keyframes fadeInLayout {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.users-grid-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr; /* Exact matching dynamic control panel scale */
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .users-grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   🖼️ THEME COMPONENT CARDS & PANELS
+   ========================================== */
+.theme-panel-card {
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.panel-header-block {
+  padding: 14px 20px;
+  border-bottom: 1px solid #eaeaea;
+  background-color: #fafafa;
+}
+
+.panel-header-block h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111111;
+  letter-spacing: -0.2px;
+}
+
+/* ==========================================
+   ⌨️ SYSTEM FORM FIELDS STYLING
+   ========================================== */
+.theme-form-structure {
+  padding: 20px;
+}
+
+.input-field-group {
+  margin-bottom: 16px;
+}
+
+.input-field-group label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #555555;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 6px;
+}
+
+.theme-form-structure input,
+.theme-select-dropdown {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 0.9rem;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #111111;
+  transition: all 0.15s ease;
+}
+
+.theme-form-structure input:focus,
+.theme-select-dropdown:focus {
+  outline: none;
+  border-color: #111111;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+
+/* ==========================================
+   🔘 THEME SOLID & OUTLINE ACTION BUTTONS
+   ========================================== */
+.panel-actions-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.theme-action-btn {
+  padding: 9px 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s ease;
+}
+
+.primary-solid-btn {
+  background-color: #111111; /* Brand Dark Core Accent */
+  color: #ffffff;
+  flex: 1;
+}
+
+.primary-solid-btn:hover {
+  background-color: #222222;
+}
+
+.secondary-outline-btn {
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  color: #444444;
+}
+
+.secondary-outline-btn:hover {
+  background: #f5f5f5;
+  border-color: #999999;
+}
+
+/* ==========================================
+   📊 INTEGRATED ANALYTICS INTERFACE TABLES
+   ========================================== */
+.theme-table-container {
+  overflow-x: auto;
+}
+
+.dashboard-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.dashboard-data-table th {
+  background: #fafafa;
+  color: #555555;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.dashboard-data-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f5f5f5;
+  color: #222222;
+  vertical-align: middle;
+}
+
+.data-row-hover:hover {
+  background-color: #fcfcfc;
+}
+
+.uid-cell {
+  font-family: monospace;
+  color: #888888;
+  font-size: 0.85rem;
+}
+
+.email-display-cell {
+  font-weight: 500;
+}
+
+/* ==========================================
+   🏷️ PRIVILEGE INDICATOR BADGES
+   ========================================== */
+.system-role-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+.badge-type-admin {
+  background: #f3e8ff;
+  color: #6b21a8;
+  border: 1px solid #d8b4fe;
+}
+
+.badge-type-manager {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+/* ==========================================
+   🛠️ TABLE CONTROLS WRAPPERS
+   ========================================== */
+.table-action-buttons-group {
+  display: flex;
+  gap: 6px;
+}
+
+.row-control-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #555555;
+  transition: all 0.15s ease;
+}
+
+.row-control-btn i {
+  font-size: 0.85rem;
+}
+
+.trigger-edit:hover {
+  border-color: #0284c7;
+  color: #0284c7;
+  background: #f0f9ff;
+}
+
+.trigger-delete:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: #fef2f2;
+}
+
+/* Empty node states */
+.empty-table-state, .table-loading-state {
+  text-align: center;
+  padding: 40px !important;
+  color: #888888;
+}
+
+/* ==========================================
+   🚨 NOTIFICATION ALERT DESIGN BANNER
+   ========================================== */
+.status-toast-container {
+  margin-bottom: 16px;
+}
+
+.theme-toast {
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.error-toast {
+  background: #fff5f5;
+  color: #cc0000;
+  border: 1px solid #fecaca;
+}
+
+.success-toast {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+/* Icons and Header Titles layout match */
+.panel-title-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #111111;
+}
+
+.panel-title-with-icon h3 {
+  margin: 0;
+}
+
+/* Input Fields inside Icons Adjustments */
+.input-with-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-inside-icon {
+  position: absolute;
+  left: 12px;
+  color: #777777;
+  pointer-events: none;
+}
+
+.theme-form-structure input {
+  padding-left: 38px !important; /* Icon space backup */
+}
+
+.theme-select-dropdown {
+  padding-left: 38px !important;
+}
+
+/* Core styling properties backup link from previous step */
+.users-view-wrapper {
+  animation: fadeInLayout 0.25s ease-out;
+  width: 100%;
+}
+.users-grid-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 1024px) {
+  .users-grid-layout { grid-template-columns: 1fr; }
+}
+.theme-panel-card {
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+.panel-header-block {
+  padding: 14px 20px;
+  border-bottom: 1px solid #eaeaea;
+  background-color: #fafafa;
+}
+.theme-form-structure { padding: 20px; }
+.input-field-group { margin-bottom: 16px; }
+.input-field-group label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #555555;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 6px;
+}
+.theme-form-structure input, .theme-select-dropdown {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 0.9rem;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #111111;
+}
+.theme-form-structure input:focus, .theme-select-dropdown:focus {
+  outline: none;
+  border-color: #111111;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+.panel-actions-row { display: flex; gap: 8px; margin-top: 20px; }
+.theme-action-btn { padding: 9px 16px; font-size: 0.85rem; font-weight: 500; border-radius: 4px; cursor: pointer; border: none; }
+.primary-solid-btn { background-color: #111111; color: #ffffff; flex: 1; }
+.primary-solid-btn:hover { background-color: #222222; }
+.secondary-outline-btn { background: #ffffff; border: 1px solid #cccccc; color: #444444; }
+.secondary-outline-btn:hover { background: #f5f5f5; }
+.theme-table-container { overflow-x: auto; }
+.dashboard-data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+.dashboard-data-table th { background: #fafafa; color: #555555; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; padding: 12px 16px; border-bottom: 1px solid #eaeaea; }
+.dashboard-data-table td { padding: 12px 16px; border-bottom: 1px solid #f5f5f5; color: #222222; vertical-align: middle; }
+.data-row-hover:hover { background-color: #fcfcfc; }
+.uid-cell { color: #888888; font-size: 0.85rem; }
+.email-display-cell { font-weight: 500; }
+.system-role-badge { display: inline-block; padding: 2px 8px; font-size: 0.72rem; font-weight: 600; border-radius: 4px; text-transform: uppercase; }
+.badge-type-admin { background: #f3e8ff; color: #6b21a8; border: 1px solid #d8b4fe; }
+.badge-type-manager { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+.table-action-buttons-group { display: flex; gap: 6px; }
+.row-control-btn { display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; font-size: 0.78rem; font-weight: 500; background: #ffffff; border: 1px solid #eaeaea; border-radius: 4px; cursor: pointer; color: #555555; }
+.trigger-edit:hover { border-color: #0284c7; color: #0284c7; background: #f0f9ff; }
+.trigger-delete:hover { border-color: #ef4444; color: #ef4444; background: #fef2f2; }
+.empty-table-state, .table-loading-state { text-align: center; padding: 40px !important; color: #888888; }
+.status-toast-container { margin-bottom: 16px; }
+.theme-toast { padding: 10px 16px; border-radius: 4px; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+.error-toast { background: #fff5f5; color: #cc0000; border: 1px solid #fecaca; }
+.success-toast { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+
+/* Access Denied Container Styling */
+.access-denied-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  width: 100%;
+  animation: fadeInLayout 0.25s ease-out;
+}
+
+.access-denied-card {
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  padding: 40px 30px !important;
+}
+
+.lock-icon-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  background-color: #fef2f2;
+  border-radius: 50%;
+  margin-bottom: 24px;
+  border: 1px solid #fee2e2;
+}
+
+.lock-icon {
+  color: #ef4444;
+}
+
+.access-denied-card h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111111;
+  margin: 0 0 10px 0;
+}
+
+.access-denied-card p {
+  font-size: 0.95rem;
+  color: #666666;
+  line-height: 1.5;
+  margin: 0;
+}

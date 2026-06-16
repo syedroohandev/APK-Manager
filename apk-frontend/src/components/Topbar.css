@@ -1,0 +1,50 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 24px;
+  border-bottom: 1px solid #e5e5e3;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.topbar-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.topbar-title .ti { font-size: 18px; color: #9b9b97; }
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.view-toggle {
+  display: flex;
+  border: 1px solid #e0e0dd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.view-btn {
+  width: 32px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #6b6b67;
+  font-size: 14px;
+  transition: background 0.1s, color 0.1s;
+}
+
+.view-btn:hover  { background: #f0f0ee; color: #1a1a1a; }
+.view-btn.active { background: #e8e8e5; color: #1a1a1a; }

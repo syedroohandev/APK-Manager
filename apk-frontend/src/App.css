@@ -1,0 +1,367 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f7f7f5;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout ── */
+.app-wrapper {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: #fff;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+/* ── Search bar ── */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #e5e5e3;
+  border-radius: 8px;
+  background: #f7f7f5;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  flex: 1;
+  font-size: 13px;
+  color: #1a1a1a;
+}
+
+.search-bar input::placeholder {
+  color: #9b9b97;
+}
+
+.search-bar .ti {
+  color: #9b9b97;
+  font-size: 15px;
+}
+
+/* ── Shared button ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid #e0e0dd;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  background: #fff;
+  color: #1a1a1a;
+  transition: background 0.12s;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.btn:hover { background: #f0f0ee; }
+
+.btn-primary {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: transparent;
+}
+
+.btn-primary:hover {
+  background: #333;
+  color: #fff;
+}
+
+.btn-danger {
+  color: #c0392b;
+  border-color: #f5c6c3;
+}
+
+.btn-danger:hover { background: #fdf0ef; }
+
+/* ── Icon button ── */
+.icon-btn {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e5e3;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  color: #6b6b67;
+  font-size: 14px;
+  transition: all 0.12s;
+  text-decoration: none;
+}
+
+.icon-btn:hover {
+  background: #f0f0ee;
+  color: #1a1a1a;
+}
+
+.icon-btn.danger:hover {
+  background: #fdf0ef;
+  color: #c0392b;
+  border-color: #f5c6c3;
+}
+
+/* ── Modal overlay ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  z-index: 100;
+}
+
+.modal-panel {
+  width: 380px;
+  height: 100vh;
+  background: #fff;
+  border-left: 1px solid #e5e5e3;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  animation: slideIn 0.18s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.modal-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.divider {
+  height: 1px;
+  background: #e5e5e3;
+}
+
+/* ── Form fields ── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field-label {
+  font-size: 12px;
+  color: #6b6b67;
+  font-weight: 500;
+}
+
+.field-input {
+  padding: 8px 10px;
+  border: 1px solid #e0e0dd;
+  border-radius: 6px;
+  font-size: 13px;
+  background: #fff;
+  color: #1a1a1a;
+  width: 100%;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.12s;
+}
+
+.field-input:focus { border-color: #1a1a1a; }
+
+/* ── File drop zone ── */
+.file-drop {
+  border: 1.5px dashed #d0d0cc;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  background: #f7f7f5;
+  transition: border-color 0.12s, background 0.12s;
+}
+
+.file-drop:hover,
+.file-drop.drag {
+  border-color: #1a1a1a;
+  background: #f0f0ee;
+}
+
+.file-drop .ti {
+  font-size: 28px;
+  color: #9b9b97;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.file-drop p { font-size: 13px; color: #6b6b67; }
+.file-drop small { font-size: 11px; color: #9b9b97; }
+
+/* ── Progress bar ── */
+.progress-wrap { margin-top: 4px; }
+
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #6b6b67;
+  margin-bottom: 4px;
+}
+
+.progress-bar {
+  height: 3px;
+  background: #e5e5e3;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #1a1a1a;
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+
+/* ── Badge ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.badge-blue   { background: #e8f1fb; color: #1d5fa5; }
+.badge-green  { background: #eaf3de; color: #3b6d11; }
+.badge-amber  { background: #faeeda; color: #854f0b; }
+
+/* ── App icon initials ── */
+.app-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+  gap: 12px;
+}
+
+.empty-state .ti { font-size: 36px; color: #c0c0bc; }
+.empty-state p   { font-size: 14px; color: #6b6b67; }
+.empty-state small { font-size: 12px; color: #9b9b97; }
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 200;
+  animation: fadeUp 0.18s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.toast.success { background: #1a1a1a; color: #fff; }
+.toast.error   { background: #c0392b; color: #fff; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0);   }
+}
+.upload-master-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Icon aur text ke darmiyan gap */
+  
+  /* 🎨 Minimal theme colors (border matching approach) */
+  background-color: #000000 !important; 
+  color: #1f2937 !important; /* Elegant dark grey text */
+  border: 1px solid #e5e7eb !important; /* Soft minimal border search bar ki tarah */
+  border-radius: 6px !important;
+  cursor: pointer;
+  
+  /* 🔤 Typography adjustments */
+  font-weight: 500;
+  font-size: 13.5px;
+  line-height: 1 !important; /* 👈 Text ka extra margin khatam karne ke liye */
+  white-space: nowrap;
+  
+  /* 📐 EXACT HEIGHT CONTROL */
+  height: 35px !important; /* 👈 Isko badal kar aap 36px, 38px ya 40px jo aapke search bar ke barabar ho, rakh sakte hain */
+  padding: 0 16px !important; /* 👈 Padding upar/niche 0 rakhein taaki height flex ko lock kare */
+  
+  /* 🌟 Constraints */
+  width: auto !important;
+  max-width: max-content !important; 
+  flex-grow: 0 !important;        
+  flex-shrink: 0 !important;      
+  
+  color: #ffffff !important; /* Text crisp pure black ho jayega */
+  transition: all 0.15s ease-in-out;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ✨ Soft Elegant Hover Effect */
+.upload-master-btn:hover {
+  background-color: #3c3c3c !important; /* Halka sa light grey background */
+  border-color: #d1d5db !important; /* Border thoda dark ho jayega */
+  color: #ffffff !important; /* Text crisp pure black ho jayega */
+}
+
+/* Click Effect */
+.upload-master-btn:active {
+  transform: scale(0.98); /* Click karne par tactile subtle pop effect */
+  background-color: #6c6c6c !important;
+}
