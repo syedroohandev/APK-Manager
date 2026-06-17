@@ -111,7 +111,7 @@ PORT=3000
 ### Start Backend
 
 ```bash
-node server.js
+npx nodemon server.js
 ```
 
 
@@ -183,12 +183,8 @@ uploads/
 
 ## Future Improvements
 
-- User Authentication
-- Role-Based Access Control
-- Search & Filtering
 - APK Version History
 - Download Analytics
-- Cloud Storage Integration (AWS S3, DigitalOcean Spaces)
 - Activity Logging
 - Bulk APK Upload Support
 
