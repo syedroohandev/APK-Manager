@@ -35,6 +35,7 @@ A full-stack web application for managing, storing, and distributing Android APK
 
 ## Project Structure
 
+```text
 APK_SYSTEM/
 │
 ├── apk-frontend/
@@ -57,39 +58,50 @@ APK_SYSTEM/
 │   └── server.js
 │
 └── README.md
+```
 
 
 ## Getting Started
 
 ### Clone the Repository
 
-git clone https://github.com/syedroohandev/APK_SYSTEM.git
+```bash
+git clone https://github.com/syedroohandev/APK-Manager.git
 cd APK_SYSTEM
+```
 
 ### Install Frontend Dependencies
 
+```bash
 cd apk-frontend
 npm install
+```
 
 ### Install Backend Dependencies
 
+```bash
 cd ../backend
 npm install
+```
 
 ## Environment Variables
 
 ### Frontend (`apk-frontend/.env`)
 
+```env
 VITE_API_URL=http://localhost:3000/api
+```
 
 
 ### Backend (`backend/.env`)
 
+```env
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=your_password
 DB_NAME=apk_management
 PORT=3000
+```
 
 
 > Make sure the frontend API URL points to your backend server URL. Update it accordingly when deploying to production.
@@ -98,22 +110,30 @@ PORT=3000
 
 ### Start Backend
 
-npx nodemon server.js
+```bash
+node server.js
+```
 
 
 ### Start Frontend
 
+```bash
 cd apk-frontend
 npm run dev
+```
 
 
 The frontend development server will typically run on:
 
+```text
 http://localhost:5173
+```
 
 ## Build Frontend
 
+```bash
 npm run build
+```
 
 The production build will be generated inside the `dist` folder.
 
