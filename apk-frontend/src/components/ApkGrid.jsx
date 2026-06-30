@@ -18,6 +18,10 @@ const ApkGrid = ({ apks, apiBase, onEdit, onDelete }) => {
     <div className="apk-grid">
       {apks.map((apk, i) => {
         const { bg, text } = getIconColor(i);
+
+        // ✅ Updated: Use file_name instead of file_path
+        const fileName = getFileName(apk.file_name);
+
         return (
           <div className="apk-card" key={apk.id}>
             <div
@@ -26,18 +30,25 @@ const ApkGrid = ({ apks, apiBase, onEdit, onDelete }) => {
             >
               {getInitials(apk.app_name)}
             </div>
+
             <div className="apk-card-name">{apk.app_name}</div>
+
             <div className="apk-card-ver">v{apk.version}</div>
-            <div className="apk-card-file">{getFileName(apk.file_path)}</div>
+
+            {/* ✅ Updated: Display file_name */}
+            <div className="apk-card-file">{fileName}</div>
+
             <div className="apk-card-actions">
               <a
-                href={`${API}/apks/${apk.file_path.split(/[\\/]/).pop()}`}
+                // ✅ Updated: Download uses file_name instead of file_path
+                href={`${API}/apks/${fileName}`}
                 download
                 className="icon-btn"
                 title="Download"
               >
                 <i className="ti ti-download" aria-hidden="true" />
               </a>
+
               <button
                 className="icon-btn"
                 title="Edit"
@@ -51,6 +62,7 @@ const ApkGrid = ({ apks, apiBase, onEdit, onDelete }) => {
               >
                 <i className="ti ti-edit" aria-hidden="true" />
               </button>
+
               <button
                 className="icon-btn danger"
                 title="Delete"

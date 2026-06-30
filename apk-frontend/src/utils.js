@@ -1,8 +1,10 @@
 export const getInitials = (name = '') =>
   name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
 
-export const getFileName = (filePath = '') =>
-  filePath.split(/[\\/]/).pop() || '—';
+export const getFileName = (fileName = '') =>{
+  if (!fileName) return "";
+  fileName.split(/[\\/]/).pop() || '—';
+};
 
 const ICON_COLORS = [
   { bg: '#e8f1fb', text: '#1d5fa5' },

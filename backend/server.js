@@ -6,7 +6,7 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
-require('dotenv').config();
+require("dotenv").config();
 const app = express();
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -14,7 +14,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 app.use(cors()); // Hashing aur standard routing ke preflight errors ko bypass karne ke liye
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api/apks", express.static("uploads"));
+app.use("/api/files", express.static(path.join(__dirname, "uploads")));
+// app.use("/api/apks", express.static("uploads"));
 
 // 1. Storage aur File Validation Setup
 const storage = multer.diskStorage({
@@ -57,12 +58,49 @@ const uploadBin = multer({
 }).single("firmware");
 
 // 2. Database Connection (Traditional Callback Instance)
-const db = mysql.createConnection({
+const db = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER,      
-  password: process.env.DB_PASSWORD, 
-  database: process.env.DB_NAME,  
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 10000,
 });
+
+// Connection successful hone par log
+db.getConnection((err, connection) => {
+  if (err) {
+    console.error("❌ Database connection failed:", err.message);
+  } else {
+    console.log("✅ Database connected successfully!");
+    connection.release(); // connection wapas pool mein chor do
+  }
+});
+
+// Pool-level errors (jaise connection drop, etc.)
+db.on('error', function (err) {
+  console.error("⚠️ Database pool error:", err.code, "-", err.message);
+});
+// const db = mysql.createConnection({
+//   host: process.env.DB_HOST || "localhost",
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_NAME,
+// });
+
+// db.on('error', function(err) {
+//   console.error('Database error:', err);
+//   if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET') {
+//     // Yahan aap connection ko re-establish karne ka logic likh sakte hain
+//     console.log('Database connection was closed. Reconnecting...');
+//     // handleDisconnect(); 
+//   } else {
+//     throw err;
+//   }
+// });
 
 // Helper function to delete file safely
 function deleteFile(filePath) {
@@ -90,66 +128,76 @@ const verifyToken = (req, res, next) => {
 
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          message: "Session expired. Please login again.",
-        });
+      return res.status(401).json({
+        success: false,
+        message: "Session expired. Please login again.",
+      });
     }
     req.user = decoded;
     next();
   });
 };
 
-app.get('/api', (req, res) => {
-    res.send('API is working correctly!');
+app.get("/api", (req, res) => {
+  res.send("API is working correctly!");
 });
 
-app.get('/', (req, res) => {
-    res.send('Runnning!');
+app.get("/", (req, res) => {
+  res.send("Runnning!");
 });
 
-// 🔑 1. USER LOGIN API 
-app.post('/api/auth/login', (req, res) => {
+// 🔑 1. USER LOGIN API
+app.post("/api/auth/login", (req, res) => {
   const { email, password } = req.body;
 
-  db.query('SELECT * FROM users WHERE email = ?', [email.trim()], (err, rows) => {
-    if (err) {
-      console.error("Database Login Error:", err);
-      return res.status(500).json({ success: false, message: 'Server error during login' });
-    }
-
-    if (!rows || rows.length === 0) {
-      return res.status(401).json({ success: false, message: 'Invalid email or password' });
-    }
-
-    const user = JSON.parse(JSON.stringify(rows[0]));
-
-    // Asli professional tareeqa: Bcrypt standard validation
-    bcrypt.compare(password, user.password, (bcryptErr, isMatch) => {
-      if (bcryptErr) {
-        return res.status(500).json({ success: false, message: 'Encryption match failed' });
+  db.query(
+    "SELECT * FROM users WHERE email = ?",
+    [email.trim()],
+    (err, rows) => {
+      if (err) {
+        console.error("Database Login Error:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Server error during login" });
       }
 
-      if (!isMatch) {
-        return res.status(401).json({ success: false, message: 'Invalid email or password' });
+      if (!rows || rows.length === 0) {
+        return res
+          .status(401)
+          .json({ success: false, message: "Invalid email or password" });
       }
 
-      const token = jwt.sign(
-        { id: user.id, email: user.email, role: user.role },
-        JWT_SECRET,
-        { expiresIn: '1d' }
-      );
+      const user = JSON.parse(JSON.stringify(rows[0]));
 
-      res.json({
-        success: true,
-        message: 'Logged in successfully',
-        token,
-        role: user.role
+      // Asli professional tareeqa: Bcrypt standard validation
+      bcrypt.compare(password, user.password, (bcryptErr, isMatch) => {
+        if (bcryptErr) {
+          return res
+            .status(500)
+            .json({ success: false, message: "Encryption match failed" });
+        }
+
+        if (!isMatch) {
+          return res
+            .status(401)
+            .json({ success: false, message: "Invalid email or password" });
+        }
+
+        const token = jwt.sign(
+          { id: user.id, email: user.email, role: user.role },
+          JWT_SECRET,
+          { expiresIn: "1d" },
+        );
+
+        res.json({
+          success: true,
+          message: "Logged in successfully",
+          token,
+          role: user.role,
+        });
       });
-    });
-  });
+    },
+  );
 });
 // ==========================================
 // ➕ 2. ADD NEW USER API (Callback Style)
@@ -214,46 +262,59 @@ app.put("/api/users/:id", verifyToken, async (req, res) => {
   const { id } = req.params;
   const { email, role, password } = req.body; // 👈 1. Password yahan catch kiya
 
-  db.query("SELECT id FROM users WHERE id = ?", [id], async (err, userCheck) => {
-    if (err) return res.status(500).json({ success: false, message: "Server error" });
-    
-    if (userCheck.length === 0) {
-      return res.status(404).json({ success: false, message: "User not found" });
-    }
+  db.query(
+    "SELECT id FROM users WHERE id = ?",
+    [id],
+    async (err, userCheck) => {
+      if (err)
+        return res
+          .status(500)
+          .json({ success: false, message: "Server error" });
 
-    // 🌟 DYNAMIC QUERY LOGIC: Default fields jo hamesha update hongi
-    let queryStr = "UPDATE users SET email = ?, role = ?";
-    let queryParams = [email, role || "admin"];
-
-    // 👈 2. Agar frontend se password bheja gaya hai toh use query mein shamil karein
-    if (password && password.trim() !== "") {
-      try {
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password.trim(), salt); // Password ko hash kiya
-        
-        queryStr += ", password = ?"; // Query mein password column add kiya
-        queryParams.push(hashedPassword); // Params mein hashed password daala
-      } catch (hashErr) {
-        return res.status(500).json({ success: false, message: "Error securing password" });
+      if (userCheck.length === 0) {
+        return res
+          .status(404)
+          .json({ success: false, message: "User not found" });
       }
-    }
 
-    // Query ke aakhri hisse mein WHERE clause lagaya
-    queryStr += " WHERE id = ?";
-    queryParams.push(id);
+      // 🌟 DYNAMIC QUERY LOGIC: Default fields jo hamesha update hongi
+      let queryStr = "UPDATE users SET email = ?, role = ?";
+      let queryParams = [email, role || "admin"];
 
-    // Final database query execute karein
-    db.query(queryStr, queryParams, (updateErr, result) => {
-      if (updateErr) {
-        return res.status(500).json({ success: false, message: "Failed to update user" });
+      // 👈 2. Agar frontend se password bheja gaya hai toh use query mein shamil karein
+      if (password && password.trim() !== "") {
+        try {
+          const salt = await bcrypt.genSalt(10);
+          const hashedPassword = await bcrypt.hash(password.trim(), salt); // Password ko hash kiya
+
+          queryStr += ", password = ?"; // Query mein password column add kiya
+          queryParams.push(hashedPassword); // Params mein hashed password daala
+        } catch (hashErr) {
+          return res
+            .status(500)
+            .json({ success: false, message: "Error securing password" });
+        }
       }
-      
-      res.json({
-        success: true,
-        message: "User updated successfully",
+
+      // Query ke aakhri hisse mein WHERE clause lagaya
+      queryStr += " WHERE id = ?";
+      queryParams.push(id);
+
+      // Final database query execute karein
+      db.query(queryStr, queryParams, (updateErr, result) => {
+        if (updateErr) {
+          return res
+            .status(500)
+            .json({ success: false, message: "Failed to update user" });
+        }
+
+        res.json({
+          success: true,
+          message: "User updated successfully",
+        });
       });
-    });
-  });
+    },
+  );
 });
 // ==========================================
 // 🗑️ 4. DELETE USER API (Callback Style)
@@ -306,11 +367,11 @@ app.post("/api/apks", upload.single("apk"), (req, res) => {
   }
 
   const { app_name, version } = req.body;
-  const file_path = req.file.path;
 
-  const sql =
-    "INSERT INTO apks (app_name, version, file_path) VALUES (?, ?, ?)";
-  db.query(sql, [app_name, version, file_path], (err, result) => {
+  const file_name = req.file.filename;
+
+  const sql = "INSERT INTO apks (app_name, version, file_name) VALUES (?, ?, ?)";
+  db.query(sql, [app_name, version, file_name], (err, result) => {
     if (err) {
       console.error("Database Error:", err);
       return res.status(500).send(err);
@@ -321,9 +382,18 @@ app.post("/api/apks", upload.single("apk"), (req, res) => {
 });
 
 // GET: List all APKs
+// app.get("/api/apks", (req, res) => {
+//   db.query("SELECT * FROM apks", (err, results) => {
+//     if (err) return res.status(500).send(err);
+//     res.json(results);
+//   });
+// });
+
+// server.js mein ye check karein
 app.get("/api/apks", (req, res) => {
   db.query("SELECT * FROM apks", (err, results) => {
     if (err) return res.status(500).send(err);
+    console.log(results); 
     res.json(results);
   });
 });
@@ -335,6 +405,7 @@ app.put("/api/apks/:id", (req, res) => {
     "UPDATE apks SET app_name=?, version=? WHERE id=?",
     [app_name, version, req.params.id],
     (err) => {
+      
       if (err) return res.status(500).send(err);
       res.send("Updated successfully");
     },
@@ -343,23 +414,59 @@ app.put("/api/apks/:id", (req, res) => {
 
 // DELETE: Remove APK
 app.delete("/api/apks/:id", (req, res) => {
-  db.query(
-    "SELECT file_path FROM apks WHERE id=?",
-    [req.params.id],
-    (err, result) => {
-      if (err || result.length === 0)
-        return res.status(404).send("APK not found");
+  const { id } = req.params;
 
-      const filePath = result[0].file_path;
-      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+  // 1. Pehle database se file_name fetch karein
+  db.query("SELECT file_name FROM apks WHERE id=?", [id], (err, result) => {
+    if (err) {
+      return res.status(500).json({ success: false, message: "Database error" });
+    }
+    
+    if (result.length === 0) {
+      return res.status(404).json({ success: false, message: "APK not found" });
+    }
 
-      db.query("DELETE FROM apks WHERE id=?", [req.params.id], (deleteErr) => {
-        if (deleteErr) return res.status(500).send(deleteErr);
-        res.send("Deleted successfully");
-      });
-    },
-  );
+    const fileName = result[0].file_name;
+    // 2. Server par file ka absolute path banayein
+    const filePath = path.join(__dirname, "uploads", fileName);
+
+    // 3. File delete karein (Agar exist karti ho)
+    if (fs.existsSync(filePath)) {
+      try {
+        fs.unlinkSync(filePath);
+        console.log(`Successfully deleted: ${fileName}`);
+      } catch (unlinkErr) {
+        console.error("File deletion error:", unlinkErr);
+      }
+    }
+
+    // 4. Database se record delete karein
+    db.query("DELETE FROM apks WHERE id=?", [id], (deleteErr) => {
+      if (deleteErr) {
+        return res.status(500).json({ success: false, message: "Failed to delete from DB" });
+      }
+      res.json({ success: true, message: "APK and record deleted successfully" });
+    });
+  });
 });
+// app.delete("/api/apks/:id", (req, res) => {
+//   db.query(
+//     "SELECT file_path FROM apks WHERE id=?",
+//     [req.params.id],
+//     (err, result) => {
+//       if (err || result.length === 0)
+//         return res.status(404).send("APK not found");
+
+//       const filePath = result[0].file_path;
+//       if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+
+//       db.query("DELETE FROM apks WHERE id=?", [req.params.id], (deleteErr) => {
+//         if (deleteErr) return res.status(500).send(deleteErr);
+//         res.send("Deleted successfully");
+//       });
+//     },
+//   );
+// });
 
 // ==========================================
 // 🛠️ HARDWARE DEVICE FIRMWARE ROUTES (Existing)
@@ -490,7 +597,7 @@ app.use((err, req, res, next) => {
 });
 
 // 5. Server Start Configuration
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT || 3000;
 
 const server = app.listen(PORT, () => {
   console.log(`🚀 System Server running on port ${PORT}`);

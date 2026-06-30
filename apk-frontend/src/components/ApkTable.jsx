@@ -69,7 +69,7 @@ const ApkTable = ({ apks, apiBase, onEdit, onDelete, onNew, searchQuery = "", on
                   <span className="badge badge-blue">v{apk.version}</span>
                 </td>
                 <td>
-                  <span className="file-name">{getFileName(apk.file_path)}</span>
+                  <span className="file-name">{getFileName(apk.file_name)}</span>
                 </td>
                 <td>
                   <span className="row-id">#{apk.id}</span>
@@ -77,7 +77,7 @@ const ApkTable = ({ apks, apiBase, onEdit, onDelete, onNew, searchQuery = "", on
                 <td>
                   <div className="actions-cell">
                     <a
-                      href={`${apiBase}/${apk.file_path}`}
+                      href={`${apiBase}/files/${apk.file_name}`}
                       download
                       className="icon-btn"
                       title="Download"
